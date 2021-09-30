@@ -1,0 +1,42 @@
+syntax = "proto3";
+
+package shipping;
+
+option go_package = "proto/shipping";
+
+service ShippingService {
+    rpc CreateConsignment(Consignment) returns (Response) {}
+    rpc GetConsignment(SearchParameter) returns (Response) {}
+    rpc GetAllConsignments(GetAllRequest) returns (Response) {}
+    rpc UpdateConsignment(Consignment) returns (Response) {}
+    rpc DeleteConsignment(SearchParameter) returns (Response) {}
+    rpc QuoteConsignment(SearchParameter) returns (Response) {}
+}
+
+message Item {
+    string  name = 1;
+    uint64  price = 2;
+}
+
+message Consignment {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    repeated Item items = 4;
+}
+
+message SearchParameter {
+    string id = 1;
+}
+
+message GetAllRequest {}
+
+message Response {
+    Consignment consignment = 1;
+    repeated Consignment consignments = 2;
+    string consignment_id = 3;
+    uint64 total_price = 4;
+    bool created = 5;
+    bool updated = 6;
+    bool deleted = 7;
+}
